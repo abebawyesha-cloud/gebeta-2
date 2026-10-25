@@ -145,74 +145,130 @@ footer{margin-top:40px;padding:28px;text-align:center;background:#064e3b;color:w
   <p>Always confirm product quality, seller details and payment terms before purchasing.</p>
   <p>© 2026 Gebeta. All rights reserved.</p>
 </footer>
-
 <script>
-function getCards(){return Array.from(document.querySelectorAll('#productList .card'))}
+const SUPABASE_URL = "https://wxfemvzxxglxbvvsycro.supabase.co";
+const SUPABASE_KEY = "የአንተን_ቀድሞ_ያገኘኸው_Publishable_Key_እዚህ_አስገባ";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+function getCards(){
+  return Array.from(document.querySelectorAll('#productList .card'));
+}
+
 function filterCategory(category){
   let shown=0;
   getCards().forEach(card=>{
     const match=category==='all'||card.dataset.category===category;
     card.style.display=match?'':'none';
-    if(match)shown++;
+    if(match) shown++;
   });
   document.getElementById('noResults').style.display=shown?'none':'block';
-  document.getElementById('products').scrollIntoView({behavior:'smooth'});
 }
+
 function searchProducts(){
   const query=document.getElementById('searchInput').value.trim().toLowerCase();
   let shown=0;
   getCards().forEach(card=>{
     const match=card.innerText.toLowerCase().includes(query);
     card.style.display=match?'':'none';
-    if(match)shown++;
+    if(match) shown++;
   });
   document.getElementById('noResults').style.display=shown?'none':'block';
 }
+
 function showAllProducts(){
   document.getElementById('searchInput').value='';
   filterCategory('all');
 }
+
 function zoomImage(src){
   document.getElementById('zoomedImage').src=src;
   document.getElementById('imageModal').style.display='flex';
 }
-function closeImage(){document.getElementById('imageModal').style.display='none'}
-function contactSeller(product){
-  alert('This is a sample listing for '+product+'. Seller contact details have not been connected yet.');
+
+function closeImage(){
+  document.getElementById('imageModal').style.display='none';
 }
-document.getElementById('sellerForm').addEventListener('submit',function(event){
+
+function contactSeller(product){
+  alert('Seller contact for '+product+' will be connected soon.');
+}
+
+document.getElementById('sellerForm').addEventListener('submit', async function(event){
   event.preventDefault();
+
   const name=document.getElementById('sellerProduct').value.trim();
   const category=document.getElementById('sellerCategory').value;
-  const price=document.getElementById('sellerPrice').value;
+  const price=Number(document.getElementById('sellerPrice').value);
   const description=document.getElementById('sellerDescription').value.trim();
   const location=document.getElementById('sellerLocation').value.trim();
   const phone=document.getElementById('sellerPhone').value.trim();
   const photo=document.getElementById('sellerPhoto').value.trim();
-  const card=document.createElement('article');
-  card.className='card';
-  card.dataset.category=category;
-  const img=document.createElement('img');
-  img.alt=name;
-  img.src=photo||'https://placehold.co/600x400?text=Gebeta+Product';
-  img.onclick=function(){zoomImage(img.src)};
-  const content=document.createElement('div');
-  content.className='card-content';
-  const title=document.createElement('h3');title.textContent=name;
-  const priceEl=document.createElement('p');priceEl.className='price';priceEl.textContent='ETB '+Number(price).toLocaleString();
-  const desc=document.createElement('p');desc.textContent=description;
-  const loc=document.createElement('p');loc.className='muted';loc.textContent='Location: '+location;
-  const phoneEl=document.createElement('p');phoneEl.className='muted';phoneEl.textContent='Seller phone: '+phone;
-  content.append(title,priceEl,desc,loc,phoneEl);
-  card.append(img,content);
-  document.getElementById('productList').prepend(card);
-  document.getElementById('notice').textContent='Listing preview added to this page. It will disappear if the page is refreshed; database saving is not connected yet.';
+
+  document.getElementById('notice').textContent='Saving...';
+
+  const {data,error}=await supabaseClient
+    .from('products')
+    .insert([{
+      title:name,
+      category:category,
+      price:price,
+      description:description,
+      image_url:photo,
+      seller_name:'Gebeta Seller',
+      location:location,
+      phone:phone
+    }])
+    .select();
+
+  if(error){
+    console.error(error);
+    document.getElementById('notice').textContent='Error: '+error.message;
+    return;
+  }
+
+  document.getElementById('notice').textContent='✅ Product saved successfully to Gebeta!';
+
   this.reset();
-  card.scrollIntoView({behavior:'smooth'});
+
+  if(data && data[0]){
+    const product=data[0];
+
+    const card=document.createElement('article');
+    card.className='card';
+    card.dataset.category=product.category;
+
+    const img=document.createElement('img');
+    img.alt=product.title;
+    img.src=product.image_url || 'https://placehold.co/600x400?text=Gebeta+Product';
+    img.onclick=function(){zoomImage(img.src)};
+
+    const content=document.createElement('div');
+    content.className='card-content';
+
+    content.innerHTML=`
+      <h3>${product.title}</h3>
+      <p class="price">ETB ${Number(product.price).toLocaleString()}</p>
+      <p class="muted">Category: ${product.category}</p>
+      <p>${product.description || ''}</p>
+      <p class="muted">Location: ${product.location || ''}</p>
+      <p class="muted">Seller phone: ${product.phone || ''}</p>
+    `;
+
+    card.append(img,content);
+    document.getElementById('productList').prepend(card);
+    card.scrollIntoView({behavior:'smooth'});
+  }
 });
+
 document.getElementById('searchInput').addEventListener('keydown',function(event){
-  if(event.key==='Enter'){event.preventDefault();searchProducts()}
+  if(event.key==='Enter'){
+    event.preventDefault();
+    searchProducts();
+  }
 });
-</script>
 </body>
 </html>
