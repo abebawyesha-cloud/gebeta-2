@@ -1,170 +1,218 @@
+HTML
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gebeta | የኢትዮጵያ ማርኬትፕሌስ</title>
+<title>Gebeta | Ethiopian Marketplace</title>
+<meta name="description" content="Discover products, digital goods and services from sellers in Ethiopia on Gebeta Marketplace.">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f7f8;color:#17202a}
-header{background:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #ddd}
-.logo{font-size:26px;font-weight:bold;color:#087f5b}
-nav{display:flex;gap:16px;flex-wrap:wrap}
-nav a{text-decoration:none;color:#333;font-weight:bold}
-a:hover{color:#087f5b}
-.hero{padding:55px 6%;background:linear-gradient(135deg,#087f5b,#064e3b);color:white}
-.hero h1{font-size:clamp(28px,5vw,45px);margin-bottom:18px}
-.hero p{line-height:1.8;margin-bottom:22px}
-.search{display:flex;max-width:650px;gap:8px}
-.search input{min-width:0;flex:1;padding:14px;border:0;border-radius:8px;font-size:16px}
-button{cursor:pointer;border:0;border-radius:8px;padding:12px 18px;font-weight:bold;background:#f59f00;color:white}
-section{padding:38px 5%}
-h2{margin-bottom:22px;font-size:27px}
-.categories,.products,.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:16px}
-.category,.product,.feature{background:white;border:1px solid #e2e8e5;border-radius:12px;padding:20px;text-align:center}
-.category{cursor:pointer}
-.category:hover,.product:hover{border-color:#087f5b}
-.emoji{font-size:36px;margin-bottom:12px}
-.product{text-align:left}
-.product .emoji{text-align:center;font-size:48px}
-.product h3{margin:10px 0}
-.price{color:#087f5b;font-weight:bold;margin:12px 0}
-.product button{width:100%;background:#087f5b}
-.note{line-height:1.8;color:#555}
-.cta{background:#e4f5ec;border-radius:14px;padding:25px;text-align:center}
-footer{padding:25px;text-align:center;background:#073b2e;color:white;line-height:2}
-.hidden{display:none}
-@media(max-width:500px){
-header{align-items:flex-start}
-nav{gap:12px}
-.search{flex-direction:column}
-.search button{padding:14px}
-}
+body{font-family:Arial,sans-serif;margin:0;background:#f8fafc;color:#1f2937}
+header{background:#064e3b;color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:25px;font-weight:bold;color:#fbbf24}
+nav a{color:white;text-decoration:none;margin:0 8px}
+button{cursor:pointer;border:0;border-radius:8px;padding:10px 15px;font-weight:bold}
+.primary{background:#d97706;color:white}
+.hero{background:linear-gradient(120deg,#064e3b,#047857);color:white;text-align:center;padding:55px 18px}
+.hero h1{font-size:clamp(28px,5vw,46px);margin:0 0 15px}
+.hero p{font-size:18px;line-height:1.6}
+.search{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:25px}
+input,select,textarea{padding:12px;border:1px solid #cbd5e1;border-radius:8px;max-width:100%}
+.search input{width:min(420px,90%)}
+main{max-width:1150px;margin:auto;padding:25px 16px}
+h2{color:#065f46}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 25px}
+.categories button{background:#e2e8f0;color:#334155}
+.categories button:hover{background:#d97706;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px #0000000a}
+.card img{width:100%;height:180px;object-fit:cover;background:#e2e8f0;cursor:zoom-in}
+.card-content{padding:15px}
+.card h3{margin:5px 0 10px}
+.price{color:#047857;font-size:20px;font-weight:bold}
+.muted{color:#64748b;font-size:14px}
+section.panel{background:white;border-radius:12px;padding:22px;margin-top:35px;border:1px solid #e2e8f0}
+form{display:grid;gap:12px;max-width:600px}
+form input,form select,form textarea{width:100%;box-sizing:border-box}
+footer{margin-top:40px;padding:28px;text-align:center;background:#064e3b;color:white}
+#notice{margin:12px 0;color:#047857;font-weight:bold}
+#imageModal{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:20px}
+#imageModal img{max-width:95%;max-height:85vh;object-fit:contain}
+#imageModal button{position:absolute;top:20px;right:20px}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">Gebeta 🇪🇹</div>
   <nav>
-    <a href="#home">መነሻ</a>
-    <a href="#products">ምርቶች</a>
-    <a href="#digital">ዲጂታል</a>
-    <a href="#sell">ሽጥ</a>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#digital">Digital Products</a>
+    <a href="#sell">Sell on Gebeta</a>
   </nav>
+  <button onclick="document.getElementById('sell').scrollIntoView({behavior:'smooth'})" class="primary">Start Selling</button>
 </header>
 
-<main>
 <section class="hero" id="home">
-  <h1>Find What You Need on Gebeta!</h1>
- Explore physical products, digital books, courses, and creator services all in one place. 
+  <h1>Discover Ethiopia. Shop on Gebeta.</h1>
+  <p>Find products, digital goods and services from sellers across Ethiopia.</p>
   <div class="search">
-    <input id="searchInput" type="search" placeholder="ምርት ይፈልጉ...">
-    <button onclick="searchProducts()">ፈልግ</button>
+    <input id="searchInput" type="search" placeholder="Search products or categories..." aria-label="Search products">
+    <button class="primary" onclick="searchProducts()">Search</button>
+    <button onclick="showAllProducts()">Show All</button>
   </div>
 </section>
 
-<section>
-  Product Categories
-  <div class="categories">
-    <div class="category" onclick="filterProducts('Clothing ')"><div class="emoji">👕</div>ልብስ</div>
-    <div class="category" onclick="filterProducts('Shoes ')"><div class="emoji">👟</div>ጫማ</div>
-    <div class="category" onclick="filterProducts('Phones & Electronics ')"><div class="emoji">📱</div>ስልክና ኤሌክትሮኒክስ</div>
-    <div class="category" onclick="filterProducts('Home Goods ')"><div class="emoji">🏠</div>የቤት ዕቃዎች</div>
-    <div class="category" onclick="filterProducts('Digital Products ')"><div class="emoji">📚</div>ዲጂታል ምርቶች</div>
-    <div class="category" onclick="filterProducts('Creator Services ')"><div class="emoji">🎨</div>የፈጣሪዎች ሥራ</div>
-  </div>
-</section>
+<main>
+  <section id="products">
+    <h2>Explore Categories</h2>
+    <div class="categories">
+      <button onclick="filterCategory('all')">All Products</button>
+      <button onclick="filterCategory('clothing')">Clothing</button>
+      <button onclick="filterCategory('shoes')">Shoes</button>
+      <button onclick="filterCategory('electronics')">Phones & Electronics</button>
+      <button onclick="filterCategory('home')">Home Goods</button>
+      <button onclick="filterCategory('digital')">Digital Products</button>
+      <button onclick="filterCategory('services')">Creator Services</button>
+    </div>
 
-<section id="products">
-  <h2>Physical Product Examples </h2>
-  <div class="products" id="physicalProducts">
-    <article class="product" data-name="ልብስ ልብሶች">
-      <div class="emoji">👕</div><h3>ዘመናዊ ልብስ</h3>
-      <p class="note">የልብስ ምርት</p><p class="price">1,500 ብር</p>
-      <button onclick="showInfo('ልብስ')">ዝርዝር</button>
-    </article>
-    <article class="product" data-name="ጫማ">
-      <div class="emoji">👟</div><h3>ዘመናዊ ጫማ</h3>
-      <p class="note">የጫማ ምርት</p><p class="price">2,500 ብር</p>
-      <button onclick="showInfo('ጫማ')">ዝርዝር</button>
-    </article>
-    <article class="product" data-name="ስልክ ኤሌክትሮኒክስ">
-      <div class="emoji">📱</div><h3>ስማርት ስልክ</h3>
-      <p class="note">የኤሌክትሮኒክስ ምርት</p><p class="price">18,000 ብር</p>
-      <button onclick="showInfo('ስልክ')">ዝርዝር</button>
-    </article>
-    <article class="product" data-name="ቤት የቤት ዕቃ">
-      <div class="emoji">🪑</div><h3>የቤት ዕቃ</h3>
-      <p class="note">የቤት ምርት</p><p class="price">ዋጋ ይጠይቁ</p>
-      <button onclick="showInfo('የቤት ዕቃ')">ዝርዝር</button>
-    </article>
-  </div>
-</section>
+    <h2>Featured Products</h2>
+    <p class="muted">Browse sample listings. Contact sellers to confirm availability and delivery.</p>
+    <div class="grid" id="productList">
+      <article class="card" data-category="shoes">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" alt="Red sports shoe" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Sports Shoes</h3><p class="price">ETB 2,500</p><p class="muted">Category: Shoes</p><p>Add a sporty touch to your everyday look.</p><p class="muted">Location: Addis Ababa</p><button class="primary" onclick="contactSeller('Sports Shoes')">Contact Seller</button></div>
+      </article>
+      <article class="card" data-category="clothing">
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80" alt="Fashion bag" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Fashion Bag</h3><p class="price">ETB 1,800</p><p class="muted">Category: Clothing & Accessories</p><p>A practical accessory for everyday use.</p><p class="muted">Location: Bole, Addis Ababa</p><button class="primary" onclick="contactSeller('Fashion Bag')">Contact Seller</button></div>
+      </article>
+      <article class="card" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" alt="Smartphone" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Smartphone</h3><p class="price">ETB 15,000</p><p class="muted">Category: Phones & Electronics</p><p>Stay connected with a modern smartphone.</p><p class="muted">Location: Addis Ababa</p><button class="primary" onclick="contactSeller('Smartphone')">Contact Seller</button></div>
+      </article>
+      <article class="card" data-category="home">
+        <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=700&q=80" alt="Home decor" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Home Decor</h3><p class="price">ETB 3,500</p><p class="muted">Category: Home Goods</p><p>Give your home a fresh and welcoming feel.</p><p class="muted">Location: Kazanchis, Addis Ababa</p><button class="primary" onclick="contactSeller('Home Decor')">Contact Seller</button></div>
+      </article>
+      <article class="card" data-category="digital" id="digital">
+        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80" alt="Digital learning book" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Digital Learning Guide</h3><p class="price">ETB 300</p><p class="muted">Category: Digital Products</p><p>A sample listing for an e-book or downloadable guide.</p><p class="muted">Digital delivery: Confirm with seller</p><button class="primary" onclick="contactSeller('Digital Learning Guide')">Contact Seller</button></div>
+      </article>
+      <article class="card" data-category="services">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80" alt="Digital creator workspace" onclick="zoomImage(this.src)">
+        <div class="card-content"><h3>Social Media Design</h3><p class="price">ETB 500</p><p class="muted">Category: Creator Services</p><p>Sample service listing for social media content design.</p><p class="muted">Location: Addis Ababa</p><button class="primary" onclick="contactSeller('Social Media Design')">Contact Seller</button></div>
+      </article>
+    </div>
+    <p id="noResults" style="display:none">No products found. Try another search.</p>
+  </section>
 
-<section id="digital">
-  <h2>ዲጂታል ምርቶችና የፈጣሪዎች ሥራ</h2>
-  <div class="products">
-    <article class="product" data-name="ዲጂታል PDF መጽሐፍ">
-      <div class="emoji">📘</div><h3>PDF መጽሐፍ</h3>
-      <p class="note">ዲጂታል ምርት ምሳሌ</p><p class="price">300 ብር</p>
-      <button onclick="showInfo('PDF መጽሐፍ')">ዝርዝር</button>
-    </article>
-    <article class="product" data-name="ዲጂታል ኮርስ">
-      <div class="emoji">🎓</div><h3>የመማሪያ ኮርስ</h3>
-      <p class="note">ዲጂታል ትምህርት</p><p class="price">ዋጋ ይጠይቁ</p>
-      <button onclick="showInfo('የመማሪያ ኮርስ')">ዝርዝር</button>
-    </article>
-    <article class="product" data-name="ፈጣሪ ዲዛይን">
-      <div class="emoji">🎨</div><h3>የፈጣሪ ዲዛይን</h3>
-      <p class="note">የፈጠራ ሥራዎች</p><p class="price">ዋጋ ይጠይቁ</p>
-      <button onclick="showInfo('የፈጣሪ ዲዛይን')">ዝርዝር</button>
-    </article>
-  </div>
-</section>
-
-<section id="sell">
-  <div class="cta">
-    <h2>በGebeta መሸጥ ይፈልጋሉ?</h2>
-    <p class="note">ምርትዎን ወይም ዲጂታል ሥራዎን ለብዙ ሰዎች ያስተዋውቁ።</p>
-    <p style="margin-top:15px">የሻጭ ምዝገባና ምርት ማስገቢያ ባህሪያት በሚቀጥለው ደረጃ ይገነባሉ።</p>
-  </div>
-</section>
+  <section class="panel" id="sell">
+    <h2>Sell on Gebeta</h2>
+    <p>Prepare your product listing here. This demo does not save listings to a database yet.</p>
+    <form id="sellerForm">
+      <input id="sellerProduct" placeholder="Product or service name" required>
+      <select id="sellerCategory" required>
+        <option value="">Choose a category</option>
+        <option value="clothing">Clothing</option>
+        <option value="shoes">Shoes</option>
+        <option value="electronics">Phones & Electronics</option>
+        <option value="home">Home Goods</option>
+        <option value="digital">Digital Products</option>
+        <option value="services">Creator Services</option>
+      </select>
+      <input id="sellerPrice" type="number" min="0" placeholder="Price in ETB" required>
+      <textarea id="sellerDescription" placeholder="Product description" rows="3" required></textarea>
+      <input id="sellerLocation" placeholder="Your location" required>
+      <input id="sellerPhone" type="tel" placeholder="Seller phone number" required>
+      <input id="sellerPhoto" type="url" placeholder="Product photo URL (optional)">
+      <button class="primary" type="submit">Preview Listing</button>
+    </form>
+    <div id="notice" role="status"></div>
+  </section>
 </main>
 
+<div id="imageModal" onclick="closeImage()">
+  <button class="primary" onclick="closeImage()">Close ✕</button>
+  <img id="zoomedImage" alt="Enlarged product image">
+</div>
+
 <footer>
-  <strong>Gebeta 🇪🇹</strong><br>
-  የኢትዮጵያ የአካላዊና ዲጂታል ምርቶች ማርኬትፕሌስ<br>
-  © 2026 Gebeta
+  <h3>Gebeta Marketplace</h3>
+  <p>Discover local products, digital goods and services in Ethiopia.</p>
+  <p>Always confirm product quality, seller details and payment terms before purchasing.</p>
+  <p>© 2026 Gebeta. All rights reserved.</p>
 </footer>
 
 <script>
-function searchProducts(){
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const items = document.querySelectorAll('.product');
-  let count = 0;
-
-  items.forEach(item => {
-    const name = (item.innerText + ' ' + (item.dataset.name || '')).toLowerCase();
-    const match = name.includes(q);
-
-    item.classList.toggle('hidden', q !== '' && !match);
-
-    if (q === '' || match) count++;
+function getCards(){return Array.from(document.querySelectorAll('#productList .card'))}
+function filterCategory(category){
+  let shown=0;
+  getCards().forEach(card=>{
+    const match=category==='all'||card.dataset.category===category;
+    card.style.display=match?'':'none';
+    if(match)shown++;
   });
-
+  document.getElementById('noResults').style.display=shown?'none':'block';
   document.getElementById('products').scrollIntoView({behavior:'smooth'});
-
-  if (count === 0) {
-    alert('የተፈለገው ምርት አልተገኘም። ሌላ ቃል ይሞክሩ።');
-  }
 }
-function filterProducts(category){
-  document.getElementById('searchInput').value=category;
-  searchProducts();
+function searchProducts(){
+  const query=document.getElementById('searchInput').value.trim().toLowerCase();
+  let shown=0;
+  getCards().forEach(card=>{
+    const match=card.innerText.toLowerCase().includes(query);
+    card.style.display=match?'':'none';
+    if(match)shown++;
+  });
+  document.getElementById('noResults').style.display=shown?'none':'block';
 }
-function showInfo(name){
-  alert(name+'፦ ይህ የማሳያ ምርት ነው። የግዢና ክፍያ ስርዓት ገና አልተገናኘም።');
+function showAllProducts(){
+  document.getElementById('searchInput').value='';
+  filterCategory('all');
 }
+function zoomImage(src){
+  document.getElementById('zoomedImage').src=src;
+  document.getElementById('imageModal').style.display='flex';
+}
+function closeImage(){document.getElementById('imageModal').style.display='none'}
+function contactSeller(product){
+  alert('This is a sample listing for '+product+'. Seller contact details have not been connected yet.');
+}
+document.getElementById('sellerForm').addEventListener('submit',function(event){
+  event.preventDefault();
+  const name=document.getElementById('sellerProduct').value.trim();
+  const category=document.getElementById('sellerCategory').value;
+  const price=document.getElementById('sellerPrice').value;
+  const description=document.getElementById('sellerDescription').value.trim();
+  const location=document.getElementById('sellerLocation').value.trim();
+  const phone=document.getElementById('sellerPhone').value.trim();
+  const photo=document.getElementById('sellerPhoto').value.trim();
+  const card=document.createElement('article');
+  card.className='card';
+  card.dataset.category=category;
+  const img=document.createElement('img');
+  img.alt=name;
+  img.src=photo||'https://placehold.co/600x400?text=Gebeta+Product';
+  img.onclick=function(){zoomImage(img.src)};
+  const content=document.createElement('div');
+  content.className='card-content';
+  const title=document.createElement('h3');title.textContent=name;
+  const priceEl=document.createElement('p');priceEl.className='price';priceEl.textContent='ETB '+Number(price).toLocaleString();
+  const desc=document.createElement('p');desc.textContent=description;
+  const loc=document.createElement('p');loc.className='muted';loc.textContent='Location: '+location;
+  const phoneEl=document.createElement('p');phoneEl.className='muted';phoneEl.textContent='Seller phone: '+phone;
+  content.append(title,priceEl,desc,loc,phoneEl);
+  card.append(img,content);
+  document.getElementById('productList').prepend(card);
+  document.getElementById('notice').textContent='Listing preview added to this page. It will disappear if the page is refreshed; database saving is not connected yet.';
+  this.reset();
+  card.scrollIntoView({behavior:'smooth'});
+});
+document.getElementById('searchInput').addEventListener('keydown',function(event){
+  if(event.key==='Enter'){event.preventDefault();searchProducts()}
+});
 </script>
 </body>
 </html>
