@@ -139,16 +139,24 @@ nav{gap:12px}
 
 <script>
 function searchProducts(){
-  const q=document.getElementById('searchInput').value.trim().toLowerCase();
-  const items=document.querySelectorAll('.product');
-  let count=0;
-  items.forEach(item=>{
-    const match=(item.innerText+' '+item.dataset.name).toLowerCase().includes(q);
-    item.classList.toggle('hidden',q!==''&&!match);
-    if(q===''||match)count++;
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const items = document.querySelectorAll('.product');
+  let count = 0;
+
+  items.forEach(item => {
+    const name = (item.innerText + ' ' + (item.dataset.name || '')).toLowerCase();
+    const match = name.includes(q);
+
+    item.classList.toggle('hidden', q !== '' && !match);
+
+    if (q === '' || match) count++;
   });
+
   document.getElementById('products').scrollIntoView({behavior:'smooth'});
-  if(count===0) alert('የተፈለገው ምርት አልተገኘም።');
+
+  if (count === 0) {
+    alert('የተፈለገው ምርት አልተገኘም። ሌላ ቃል ይሞክሩ።');
+  }
 }
 function filterProducts(category){
   document.getElementById('searchInput').value=category;
