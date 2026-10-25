@@ -206,12 +206,56 @@ document.getElementById('sellerForm').addEventListener('submit', async function(
   const price=Number(document.getElementById('sellerPrice').value);
   const description=document.getElementById('sellerDescription').value.trim();
   const location=document.getElementById('sellerLocation').value.trim();
-  const phone=document.getElementById('sellerPhone').value.trim();
-  const photo=document.getElementById('sellerPhoto').value.trim();
+  
+const photoFile=document.getElementById('sellerPhoto').files[0];
 
-  document.getElementById('notice').textContent='Saving...';
+document.getElementById('notice').textContent='Saving...';
 
-  const {data,error}=await supabaseClient
+let photoUrl='';
+
+if(photoFile){
+  const fileExt=photoFile.name.split('.').pop();
+  const filePath=Date.now()+'-'+Math.random().toString(36).substring(2)+'.'+fileExt;
+
+  const {error:uploadError}=await supabaseClient
+    .storage
+    .from('product-image')
+    .upload(filePath,photoFile);
+
+  if(uploadError){
+    console.error(uploadError);
+    document.getElementById('notice').textContent='Photo upload error: '+uploadError.message;
+    return;
+  }
+
+  const {data:publicData}=supabaseClient
+    .storage
+    .from('product-image')
+    .getPublicUrl(filePath);
+
+  photoUrl=publicData.publicUrl;
+}
+  const fileExt=photoFile.name.split('.').pop();
+  const filePath=Date.now()+'-'+Math.random().toString(36).substring(2)+'.'+fileExt;
+
+  const {error:uploadError}=await supabaseClient
+    .storage
+    .from('product-image')
+    .upload(filePath,photoFile);
+
+  if(uploadError){
+    console.error(uploadError);
+    document.getElementById('notice').textContent='Photo upload error: '+uploadError.message;
+    return;
+  }
+
+  const {data:publicData}=supabaseClient
+    .storage
+    .from('product-image')
+    .getPublicUrl(filePath);
+
+  photoUrl=publicData.publicUrl;
+}
     .from('products')
     .insert([{
       title:name,
