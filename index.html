@@ -1,142 +1,162 @@
-
 <!DOCTYPE html>
 <html lang="am">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gebeta | የኢትዮጵያ ማርኬትፕሌስ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7f8;color:#17202a}
+header{background:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #ddd}
+.logo{font-size:26px;font-weight:bold;color:#087f5b}
+nav{display:flex;gap:16px;flex-wrap:wrap}
+nav a{text-decoration:none;color:#333;font-weight:bold}
+a:hover{color:#087f5b}
+.hero{padding:55px 6%;background:linear-gradient(135deg,#087f5b,#064e3b);color:white}
+.hero h1{font-size:clamp(28px,5vw,45px);margin-bottom:18px}
+.hero p{line-height:1.8;margin-bottom:22px}
+.search{display:flex;max-width:650px;gap:8px}
+.search input{min-width:0;flex:1;padding:14px;border:0;border-radius:8px;font-size:16px}
+button{cursor:pointer;border:0;border-radius:8px;padding:12px 18px;font-weight:bold;background:#f59f00;color:white}
+section{padding:38px 5%}
+h2{margin-bottom:22px;font-size:27px}
+.categories,.products,.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:16px}
+.category,.product,.feature{background:white;border:1px solid #e2e8e5;border-radius:12px;padding:20px;text-align:center}
+.category{cursor:pointer}
+.category:hover,.product:hover{border-color:#087f5b}
+.emoji{font-size:36px;margin-bottom:12px}
+.product{text-align:left}
+.product .emoji{text-align:center;font-size:48px}
+.product h3{margin:10px 0}
+.price{color:#087f5b;font-weight:bold;margin:12px 0}
+.product button{width:100%;background:#087f5b}
+.note{line-height:1.8;color:#555}
+.cta{background:#e4f5ec;border-radius:14px;padding:25px;text-align:center}
+footer{padding:25px;text-align:center;background:#073b2e;color:white;line-height:2}
+.hidden{display:none}
+@media(max-width:500px){
+header{align-items:flex-start}
+nav{gap:12px}
+.search{flex-direction:column}
+.search button{padding:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Gebeta 🇪🇹</div>
+  <nav>
+    <a href="#home">መነሻ</a>
+    <a href="#products">ምርቶች</a>
+    <a href="#digital">ዲጂታል</a>
+    <a href="#sell">ሽጥ</a>
+  </nav>
+</header>
 
-  <title>Gebeta 🇪🇹 | Ethiopian Marketplace</title>
+<main>
+<section class="hero" id="home">
+  <h1>የሚፈልጉትን በGebeta ያግኙ!</h1>
+  <p>አካላዊ ምርቶችን፣ ዲጂታል መጽሐፎችን፣ ኮርሶችንና የፈጣሪዎችን አገልግሎቶች በአንድ ቦታ ያስሱ።</p>
+  <div class="search">
+    <input id="searchInput" type="search" placeholder="ምርት ይፈልጉ...">
+    <button onclick="searchProducts()">ፈልግ</button>
+  </div>
+</section>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<section>
+  <h2>የምርት ምድቦች</h2>
+  <div class="categories">
+    <div class="category" onclick="filterProducts('ልብስ')"><div class="emoji">👕</div>ልብስ</div>
+    <div class="category" onclick="filterProducts('ጫማ')"><div class="emoji">👟</div>ጫማ</div>
+    <div class="category" onclick="filterProducts('ስልክ')"><div class="emoji">📱</div>ስልክና ኤሌክትሮኒክስ</div>
+    <div class="category" onclick="filterProducts('ቤት')"><div class="emoji">🏠</div>የቤት ዕቃዎች</div>
+    <div class="category" onclick="filterProducts('ዲጂታል')"><div class="emoji">📚</div>ዲጂታል ምርቶች</div>
+    <div class="category" onclick="filterProducts('ፈጣሪ')"><div class="emoji">🎨</div>የፈጣሪዎች ሥራ</div>
+  </div>
+</section>
 
-    body {
-      background: #f5f7f8;
-      color: #17202a;
-    }
+<section id="products">
+  <h2>የአካላዊ ምርቶች ምሳሌዎች</h2>
+  <div class="products" id="physicalProducts">
+    <article class="product" data-name="ልብስ ልብሶች">
+      <div class="emoji">👕</div><h3>ዘመናዊ ልብስ</h3>
+      <p class="note">የልብስ ምርት</p><p class="price">1,500 ብር</p>
+      <button onclick="showInfo('ልብስ')">ዝርዝር</button>
+    </article>
+    <article class="product" data-name="ጫማ">
+      <div class="emoji">👟</div><h3>ዘመናዊ ጫማ</h3>
+      <p class="note">የጫማ ምርት</p><p class="price">2,500 ብር</p>
+      <button onclick="showInfo('ጫማ')">ዝርዝር</button>
+    </article>
+    <article class="product" data-name="ስልክ ኤሌክትሮኒክስ">
+      <div class="emoji">📱</div><h3>ስማርት ስልክ</h3>
+      <p class="note">የኤሌክትሮኒክስ ምርት</p><p class="price">18,000 ብር</p>
+      <button onclick="showInfo('ስልክ')">ዝርዝር</button>
+    </article>
+    <article class="product" data-name="ቤት የቤት ዕቃ">
+      <div class="emoji">🪑</div><h3>የቤት ዕቃ</h3>
+      <p class="note">የቤት ምርት</p><p class="price">ዋጋ ይጠይቁ</p>
+      <button onclick="showInfo('የቤት ዕቃ')">ዝርዝር</button>
+    </article>
+  </div>
+</section>
 
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 15px 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+<section id="digital">
+  <h2>ዲጂታል ምርቶችና የፈጣሪዎች ሥራ</h2>
+  <div class="products">
+    <article class="product" data-name="ዲጂታል PDF መጽሐፍ">
+      <div class="emoji">📘</div><h3>PDF መጽሐፍ</h3>
+      <p class="note">ዲጂታል ምርት ምሳሌ</p><p class="price">300 ብር</p>
+      <button onclick="showInfo('PDF መጽሐፍ')">ዝርዝር</button>
+    </article>
+    <article class="product" data-name="ዲጂታል ኮርስ">
+      <div class="emoji">🎓</div><h3>የመማሪያ ኮርስ</h3>
+      <p class="note">ዲጂታል ትምህርት</p><p class="price">ዋጋ ይጠይቁ</p>
+      <button onclick="showInfo('የመማሪያ ኮርስ')">ዝርዝር</button>
+    </article>
+    <article class="product" data-name="ፈጣሪ ዲዛይን">
+      <div class="emoji">🎨</div><h3>የፈጣሪ ዲዛይን</h3>
+      <p class="note">የፈጠራ ሥራዎች</p><p class="price">ዋጋ ይጠይቁ</p>
+      <button onclick="showInfo('የፈጣሪ ዲዛይን')">ዝርዝር</button>
+    </article>
+  </div>
+</section>
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      color: #087f5b;
-      white-space: nowrap;
-    }
+<section id="sell">
+  <div class="cta">
+    <h2>በGebeta መሸጥ ይፈልጋሉ?</h2>
+    <p class="note">ምርትዎን ወይም ዲጂታል ሥራዎን ለብዙ ሰዎች ያስተዋውቁ።</p>
+    <p style="margin-top:15px">የሻጭ ምዝገባና ምርት ማስገቢያ ባህሪያት በሚቀጥለው ደረጃ ይገነባሉ።</p>
+  </div>
+</section>
+</main>
 
-    nav {
-      display: flex;
-      gap: 22px;
-    }
+<footer>
+  <strong>Gebeta 🇪🇹</strong><br>
+  የኢትዮጵያ የአካላዊና ዲጂታል ምርቶች ማርኬትፕሌስ<br>
+  © 2026 Gebeta
+</footer>
 
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      color: #087f5b;
-    }
-
-    .login-btn {
-      background: #087f5b;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      padding: 70px 6%;
-      background: linear-gradient(135deg, #087f5b, #064e3b);
-      color: white;
-    }
-
-    .hero-content {
-      max-width: 850px;
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 19px;
-      line-height: 1.7;
-      margin-bottom: 30px;
-      color: #e6fffa;
-    }
-
-    .search-box {
-      background: white;
-      padding: 8px;
-      border-radius: 14px;
-      display: flex;
-      max-width: 700px;
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: 15px;
-      font-size: 16px;
-      color: #333;
-    }
-
-    .search-box button {
-      border: none;
-      background: #f59f00;
-      color: white;
-      padding: 0 25px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    section {
-      padding: 50px 6%;
-    }
-
-    .section-title {
-      font-size: 30px;
-      margin-bottom: 25px;
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-    }
-
-    .category {
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 22px 10px;
-      border-radius: 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .category
+<script>
+function searchProducts(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const items=document.querySelectorAll('.product');
+  let count=0;
+  items.forEach(item=>{
+    const match=(item.innerText+' '+item.dataset.name).toLowerCase().includes(q);
+    item.classList.toggle('hidden',q!==''&&!match);
+    if(q===''||match)count++;
+  });
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+  if(count===0) alert('የተፈለገው ምርት አልተገኘም።');
+}
+function filterProducts(category){
+  document.getElementById('searchInput').value=category;
+  searchProducts();
+}
+function showInfo(name){
+  alert(name+'፦ ይህ የማሳያ ምርት ነው። የግዢና ክፍያ ስርዓት ገና አልተገናኘም።');
+}
+</script>
+</body>
+</html>
