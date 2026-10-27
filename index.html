@@ -311,7 +311,48 @@ function zoomImage(src){
 function closeImage(){
   document.getElementById('imageModal').style.display='none';
 }
+function openProductDetails(product) {
 
+  document.getElementById('detailImage').src =
+    product.image || 'https://placehold.co/600x400?text=Gebeta+Product';
+
+  document.getElementById('detailTitle').textContent =
+    product.title || '';
+
+  document.getElementById('detailPrice').textContent =
+    'ETB ' + Number(product.price || 0).toLocaleString();
+
+  document.getElementById('detailCategory').textContent =
+    'Category: ' + (product.category || '');
+
+  document.getElementById('detailDescription').textContent =
+    product.description || 'No description available.';
+
+  document.getElementById('detailLocation').textContent =
+    '📍 Location: ' + (product.location || 'Not specified');
+
+  document.getElementById('detailSeller').textContent =
+    '👤 Seller: ' + (product.seller || 'Gebeta Seller');
+
+  document.getElementById('detailPhone').textContent =
+    '📞 Phone: ' + (product.phone || 'Not available');
+
+  document.getElementById('detailContact').onclick = function() {
+    contactSeller(product.title || 'Product');
+  };
+
+  document.getElementById('productModal').style.display = 'flex';
+}
+
+
+function closeProductDetails(event) {
+
+  if (event && event.target.id !== 'productModal') {
+    return;
+  }
+
+  document.getElementById('productModal').style.display = 'none';
+}
 function contactSeller(product){
   alert('Seller contact for '+product+' will be connected soon.');
 }
