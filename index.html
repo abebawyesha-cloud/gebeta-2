@@ -223,7 +223,41 @@ section.panel {
   <button class="primary" onclick="closeImage()">Close ✕</button>
   <img id="zoomedImage" alt="Enlarged product image">
 </div>
+<div id="productModal" class="product-modal" onclick="closeProductDetails(event)">
 
+  <div class="product-details" onclick="event.stopPropagation()">
+
+    <button class="close-product" onclick="closeProductDetails()">✕</button>
+
+    <div class="product-details-image">
+      <img id="detailImage" src="" alt="Product">
+    </div>
+
+    <div class="product-details-info">
+
+      <h2 id="detailTitle"></h2>
+
+      <p id="detailPrice" class="price"></p>
+
+      <p id="detailCategory" class="muted"></p>
+
+      <p id="detailDescription"></p>
+
+      <p id="detailLocation" class="muted"></p>
+
+      <p id="detailSeller" class="muted"></p>
+
+      <p id="detailPhone" class="muted"></p>
+
+      <button id="detailContact" class="primary">
+        📞 Contact Seller
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 <footer>
   <h3>Gebeta Marketplace</h3>
   <p>Discover local products, digital goods and services in Ethiopia.</p>
